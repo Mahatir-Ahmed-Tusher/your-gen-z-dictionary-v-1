@@ -33,7 +33,7 @@
 1. Clone or download the repository:
    ```bash
    git clone https://github.com/Mahatir-Ahmed-Tusher/your-gen-z-dictionary.git
-2. Also you can download the apk file from this link: https://drive.google.com/file/d/16mWbVtqJdRkkVBP9QavSQVHgoY92s9bF/view?usp=sharing
+2. Also you can download the apk file from this link: https://drive.google.com/file/d/16mWbVtqJdRkkVBP9QavSQVHgoY92s9bF/view?usp=sharing . Or else download the app-release apk file. Soon it will be available in platforms like uptodown and google platform.
 3. After downloading the apk, install it into your mobile phone, it's fun to use.
 4. **Explore the app:**
      - Search for words using the search bar.
