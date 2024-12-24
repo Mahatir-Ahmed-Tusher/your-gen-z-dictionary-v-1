@@ -48,9 +48,9 @@
 A special thank you to Sharaf Wasima for her enthusiastic support and for consistently encouraging the development of this project. This Gen Z Dictionary app wouldn't exist without her belief in its potential. 
 
 ## 🔗 Developer Information
-**Developer:** Mahatir Ahmed Tusher
-Email: mahatirtusher@gmail.com
-GitHub: Mahatir Ahmed Tusher
+**Developer:** Mahatir Ahmed Tusher, 
+Email: mahatirtusher@gmail.com, 
+GitHub: Mahatir-Ahmed-Tusher, 
 Download Ebook of the Dictionary: Free Dictionary PDF: https://drive.google.com/file/d/1lSTlfhUJQD2q-HvS4-4UkZ140mnvO-nL/view
 
 ## 🛠 Future Enhancements
