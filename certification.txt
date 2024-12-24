@@ -1,0 +1,23 @@
+---------------------------------------------------
+Here are the ownership and the certification details
+of the Your Gen Z Dictionary 1.0
+---------------------------------------------------
+
+app_name -                       Your Gen Z Dictionary
+app_alias -                      yourgenzdictionary
+app_author_name -                Mahatir Ahmed Tusher
+app_author_organizational -      Sufi Corporation
+app_author_organization -        Sufi Corporation
+app_author_locality -            Dhaka
+app_author_state -               Dhaka
+app_author_country -             Bangladesh
+app_password -                   fPaAYLE7fzM4
+app_versionName -                versionName "1.0"
+app_versionCode -                100
+
+---------------------------------------------------
+The certification was created by WebIntoApp.com at
+the Tuesday 24th of December 2024 07:03:19 PM
+
+https://www.webintoapp.com
+---------------------------------------------------

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Gen Z Dictionary</title>
+    <style>
+        body {
+            font-family: font-family:"Times New Roman", Times, cursive;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f2f18d, #ffe0b2);
+            color: #444;
+        }
+
+        header {
+            text-align: center;
+            background-color: #d36402;
+            color: white;
+            padding: 0.63em 0;
+            border-radius: 0 0 30px 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            font-family: font-family: "Times New Roman", Times, cursive;
+          border-radius: 30px 30px 30px 30px;
+        }
+
+        header p {
+            margin: 0.5em 0 0;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .container {
+            padding: 1.5em;
+        }
+
+        .section {
+            margin: 1em 0;
+            padding: 1.5em;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.68);
+        }
+
+        .buttons {
+            text-align: center;
+            margin: 2em 0;
+        }
+
+        .buttons a,
+        .buttons button {
+            display: inline-block;
+            margin: 0.9em;
+            padding: 0.8em 1.5em;
+            text-decoration: none;
+            color: white;
+            background-color: #c53718;
+            border-radius: 10px;
+            font-size: 0.99em;
+            font-family: font-family: "Times New Roman", Times, serif;
+            border: none;
+            cursor: pointer;
+        }
+
+        .buttons a:hover,
+        .buttons button:hover {
+            background-color: #e64a19;
+        }
+
+        .word-of-the-day,
+        .did-you-know {
+            margin:  0;
+            padding: 0.4em;
+            background-color: #ffc343;
+            border-radius: 60px;
+            font-size: 1.38em;
+            box-shadow: 0 4px 8px rgba(0.3, 0.2, 0.12, 0.29);
+            text-align: center;
+            font-family: font-family: "Times New Roman", Times, serif;
+        }
+
+        .did-you-know h2 {
+            font-size: 1.8em;
+        }
+
+        /* Fun fact slider */
+        .did-you-know {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .did-you-know p {
+            display: inline-block;
+            font-size: 0.8em;
+            color: #333;
+            animation: slide 100s linear infinite;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            font-family: font-family: "Times New Roman", Times, serif;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: #ff7043;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+        }
+
+        #searchInput {
+            width: 50%;
+            max-width: 350px;
+            padding: 1.2em;
+            font-size: 0.9em;
+            border-radius: 20px;
+            border: 2px solid #ff7043;
+        }
+
+        #searchInput::placeholder {
+            font-size: 1em;
+            font-style: italic;
+        }
+      #searchButton {
+    display: inline-block;
+    margin-top: 1em;
+    padding: 1.2em 2em;
+    font-size: 0.9em;
+    color: white;
+    background: linear-gradient(135deg, #ff5722, #ff9800);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#searchButton:hover {
+    transform: scale(1.00);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Gen Z Dictionary</h1>
+        <p>Empowering boomers in this modern world!</p>
+    </header>
+
+    <div class="container">
+      
+        <div class="section word-of-the-day">
+            <h3>Word of the Day</h3>
+            <p id="wordOfTheDay">"Fleabagging"- daating and breaking up, then making up with the wrong person over and over."</p>
+        </div>
+
+        <div class="section">
+            <h2>Search for a Word</h2>
+            <input type="text" id="searchInput" placeholder="Hey Boomer, search here..." style="padding: 0.9em; border-radius: 20px;">
+            <button id="searchButton" onclick="searchWord()">Search</button>
+            <div id="searchResult"></div>
+        </div>
+
+        <div class="section">
+            <h2>Add a New Word</h2>
+            <input type="text" id="newWord" placeholder="Enter new word" style="padding: 0.7em; border-radius: 10px;"> 
+            <input type="text" id="newMeaning" placeholder="Enter meaning" style="padding: 0.7em; border-radius: 10px;">
+            <button onclick="addWord()">Add Word</button>
+        </div>
+
+        <div class="section did-you-know">
+            <h4>Did You Know?</h4>
+            <p>"Sus" stands for "suspicious" or "suspect."</p>
+          <p>A significant portion of Gen Z slang originates from African American Vernacular English (AAVE). Terms like "slay," "bussin'," and "no cap" have roots in AAVE and have been popularized by Gen Z.</p>
+            <p>"Brain rot" beat 5 other words to become a top Gen Z slang.</p>
+    <p>Many terms are born and spread through internet memes, social media trends (like TikTok dances), and online gaming communities.</p>
+    <p>Gen Z uses shortening and abbreviations for efficiency (e.g., "sus," "wyd," "idk").</p>
+    <p>Words often express strong emotions or exaggeration (e.g., "dead" means extremely funny).</p>
+    <p>Some Gen Z slang is a revival of older slang or phrases, giving them new life and meanings.</p>
+    <p>The word "stan" originates from Eminem's 2000 song "Stan."</p>
+    <p>"Spill the tea" (gossip) is thought to originate from Black drag culture.</p>
+    <p>"OK Boomer" dismisses viewpoints associated with older generations.</p>
+    <p>Gen Z slang evolves rapidly, becoming outdated quickly ("cheugy").</p>
+    <p>Slang can vary regionally within Gen Z.</p>
+    <p>"Yeet" means to throw something with great force.</p>
+    <p>Gen Z often uses slang ironically or sarcastically.</p>
+    <p>Using certain slang can be a way for Gen Z to identify with their peers.</p>
+    <p>"Vibe check" assesses mood or atmosphere.</p>
+    <p>"Main character energy" describes acting as a protagonist.</p>
+    <p>The meaning of Gen Z slang is heavily context-dependent.</p>
+        </div>
+
+        <div class="buttons">
+  <div class="buttons">
+            <button id="quizButton">Quiz!</button>
+            <button id="ackButton">Acknowledgement</button>
+        </div>
+            <a href="https://mahatirtusher.com">Visit my Blog</a>
+          <a href= "https://in.linkedin.com/in/mahatir-ahmed-tusher-5a5524257"> Find The Developer </a>
+            <a href="https://github.com/Mahatir-Ahmed-Tusher" target="_blank">Git Repo</a>
+            <a href="https://drive.google.com/file/d/1lSTlfhUJQD2q-HvS4-4UkZ140mnvO-nL/view?usp=sharing" target="_blank">Ebook</a>
+          <a href="https://genz-dictionary-by-mahatir-tusher.tiiny.site">Check Words from our site </a> 
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="ackModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Acknowledgement</h2>
+            <p>A special thank you to Sharaf Wasima for her enthusiastic support and for consistently encouraging me to pursue this project. This Gen Z Dictionary app wouldn't be here without her belief in it.</p>
+        </div>
+    </div>
+<div id="quizModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeQuiz">&times;</span>
+            <h2>Gen Z Quiz</h2>
+          <p> Check how much Gen Z you are!</p>
+            <div id="quizContainer"></div>
+            <div class="quiz-buttons">
+                <button onclick="submitQuiz()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p style="text-align: center; color: white; background-color: #e37601; padding: 0.89em 0; margin: 0;">Developed by Mahatir Ahmed Tusher</p>
+    </footer>
+  
+    <script>
+        const dictionary = {
+   "slay": "To do something spectacularly well or succeed in an impressive way. Example- She absolutely slayed her performance at the concert.",
+
+"sus": "Suspicious or suspect. Example: \"That guy hanging around the car looks kinda sus.\"",
+
+"vibe": "A person's emotional state or the atmosphere of a place. Example: \"The café had such a chill vibe, I could stay there all day.\"",
+
+"AFK": "Away From Keyboard. Used to indicate that someone is temporarily unavailable or not at their computer. Example: \"BRB, going AFK for dinner.\"",
+
+"AMA": "Ask Me Anything. Commonly used in online forums for a Q&A session. Example: \"I'm a software engineer, AMA!\"",
+
+"ASAP": "As Soon As Possible. A request for something to be done quickly. Example: \"Please send me the report ASAP.\"",
+
+"aesthetic": "A particular style or vibe that someone finds visually pleasing. Example: \"Her Instagram feed has such a dreamy aesthetic.\"",
+
+"AF": "As Fucl. Used for emphasis (e.g., \"cool AF\"). Example: \"This pizza is spicy AF.\"",
+
+"AFAIK": "As Far As I Know. Indicates limited knowledge on a subject. Example: \"AFAIK, the meeting is still on for tomorrow.\"",
+
+"aita": "Used in chat as AITA, means Am I The Asshole. Commonly used in online discussions to seek opinions on personal conflicts. Example: \"AITA for refusing to share my Netflix password with my roommates?\"",
+
+"adulting": "Doing tasks or behaving in a way typical of a responsible adult. Example: \"I hate adulting. Paying bills is the worst.\"",
+
+"AFT": "About Fing Time. Example: \"You finally finished your homework? AFT!\"",
+
+"aight": "Alright. Example: \"Aight, let's meet up at 7 PM.\"",
+
+"ain't it": "Used to confirm agreement with a statement. Example: \"It's a beautiful day, ain't it?\"",
+
+"AirPods": "A symbol of status and modern technology referring to Apple's wireless earbuds. Example: \"He's always flexing his AirPods in class.\"",
+
+"addy": "Address. Often used in the context of providing a location. Example: \"Send me your addy so I can drop by.\"",
+
+"adorbs": "Adorable. Extremely cute or charming. Example: \"Your puppy is so adorbs!\"",
+
+"alive": "Engaged, lively, or aware. Example: \"That concert made me feel alive!\"",
+
+"alts": "Alternative accounts. Often used in online gaming or social media. Example: \"I created a few alts to test different strategies.\"",
+
+"amazeballs": "Extremely good or impressive. Example: \"The movie was amazeballs!\"",
+
+"awks": "Awkward. Example: \"I accidentally liked their 5-year-old post. Awks!\"",
+
+"amirite": "Am I right? Used to seek agreement or affirmation. Example: \"Mondays are the worst, amirite?\"",
+
+"all the feels": "Experiencing a range of emotions. Example: \"That romantic scene gave me all the feels.\"",
+
+"asl": "Shortened version of \"as hell.\" Example: \"This weather is cold asl.\"",
+
+"based": "To be yourself and not care about how others view you. Now used to indicate an opinion or something someone agrees with. Example: \"That was a based comment on politics.\"",
+
+"basic": "Denoting preference for mainstream products, trends, and music. Example: \"Pumpkin spice lattes are so basic.\"",
+
+"BDE": "Big Dick Energy. Term used for someone who exudes confidence and ease. Example: \"She walked into the room with pure BDE.\"",
+
+"bet": "Confirmation or agreement. Similar to \"okay\" or \"sure.\" Example: \"You wanna meet at 8? Bet.\"",
+
+"bae": "Before Anyone Else. A term of endearment for a significant other. Example: \"I can't wait to spend the weekend with my bae.\"",
+
+"bruh": "A term used to address a male friend or to express disbelief or frustration. Example: \"Bruh, did you just see that fail?\"",
+
+"BFF": "Best Friends Forever. Close, long-term friends. Example: \"We've been BFFs since kindergarten.\"",
+
+"big mood": "A strong feeling of relatability to something. Example: \"Me napping after work? Big mood.\"",
+
+"bop": "A really good song. Example: \"This new track is such a bop!\"",
+
+"bread": "Money. Example: \"I gotta work overtime to make more bread.\"",
+
+"banger": "A great song or event. Example: \"That party was a banger!\"",
+
+"big yikes": "An expression of major embarrassment or discomfort. Example: \"I accidentally sent the text to my boss. Big yikes.\"",
+
+"blessed": "Feeling fortunate or happy. Example: \"Feeling so blessed to have such great friends.\"",
+
+"body count": "The number of people someone has slept with. Example: \"They asked me about my body count, but I think it's a personal topic.\"",
+
+"bussin'": "Really good. Especially food. Example: \"This burger is bussin'!\"",
+
+"baddie": "A confident and attractive person. Example: \"She’s such a baddie in that outfit.\"",
+
+"beef": "Conflict or disagreement. Example: \"They’ve had beef ever since the argument at the party.\"",
+
+"boujee": "Luxurious or fancy. Derived from \"bourgeois.\" Example: \"That new restaurant downtown is so boujee.\"",
+
+"BTFO": "Blown The F Out. Used to describe a decisive defeat. Example: \"Our team got BTFO in the finals.\"",
+
+"beat the meat": "Masturbation (male). Example: \"He’s probably in his room beating the meat again.\"",
+
+"benching": "Keeping someone on the sidelines as a backup option while pursuing other romantic interests. Example: \"I think he’s benching her while he dates around.\"",
+
+"blud": "Another word for a \"friend\" or \"Bro.\" Often used to describe people or animals that are out of place. Example: \"Come on, blud, let’s hit the gym.\"",
+
+"brainrot": "Losing touch with reality due to excessive online content and slang (e.g., Skibidi Toilet, sigma). Example: \"I’ve got brainrot from scrolling TikTok all day.\"",
+
+"bffr": "Abbreviation for \"Be fucking for real.\" Meaning \"be serious\" or in response to something so incredible it cannot be real. Example: \"You think I’d believe that story? Bffr!\"",
+
+"bussy": "Portmanteau of \"Boy\" (a young male) and \"Pussy\" (slang for vagina). Effectively, a man's anus. Example: \"He joked about his bussy during the drag performance.\"",
+
+"breadcrumbing": "Giving mixed signals to lure someone in without committing. Example: \"I think she’s breadcrumbing me; one day she’s interested, the next she’s not.\"",
+
+    "caught in 4k": "Refers to someone being caught doing something wrong or incriminating on camera or with evidence to prove it.",
+    "cook": "\"Someone cooked here\" & \"Let him cook\" = give space for potentially messy (but entertaining) actions.",
+    "clapback": "Swift and witty response to an insult or critique.",
+    "cap": "A lie.",
+    "no cap": "No lie or truth.",
+    "CEO": "Used to indicate someone who is the best at a particular thing, e.g., \"CEO of memes\".",
+    "canceled": "To stop supporting someone. Usually due to their problematic behavior.",
+    "catch feelings": "To develop romantic feelings for someone",
+    "clout": "Influence or fame. Especially on social media.",
+    "cuffed": "Being in a committed relationship",
+    "curve": "To reject someone's romantic advances",
+    "capping": "Lying",
+    "cheugy": "Outdated or trying too hard. Especially in terms of fashion or lifestyle.",
+    "chill": "Relaxed or easygoing",
+    "clout chaser": "Someone who does things for fame or influence",
+    "chillax": "To calm down and relax",
+    "clutch": "Describing a crucial or game-changing moment",
+    "cray": "Crazy",
+    "DM": "Direct Message - A private message sent on social media platforms.",
+    "drip": "Stylish or fashionable attire.",
+    "dab": "A dance move used as a gesture of triumph.",
+    "dub": "Win or victory.",
+    "deadass": "Seriously or genuinely.",
+    "dying": "Laughing really hard.",
+    "deets": "Details.",
+    "dip": "To leave abruptly.",
+    "doxxing": "Publishing private information about someone without their consent.",
+    "dank": "Very cool or awesome; often used to describe memes.",
+    "dope": "Cool or awesome.",
+    "drop": "To release something, often used for music or fashion.",
+    "dead": "Extremely funny or entertaining.",
+    "defo": "Definitely.",
+    "dolla dolla bills": "Money; from a Wu-Tang Clan lyric.",
+    "do her": "Performing sexual intimacy with her.",
+    "do him": "Performing sexual intimacy with him.",
+    "doable": "Attractive or sexually appealing.",
+    "ded": "Used to describe something humorous to such an extent as to 'kill you.'",
+    "DTF": "Down to Fuck; someone who has agreed on having sex.",
+    "extra": "Over-the-top; excessive dramatic behavior.",
+    "eboy/egirl": "A young person with a specific online aesthetic, often associated with TikTok.",
+    "edgy": "Trying to be cool by being controversial or provocative.",
+    "emo": "A style associated with emotional expression and a distinct music genre.",
+    "epic": "Extremely impressive or extraordinary.",
+    "exposed": "To reveal someone's secrets or embarrassing information.",
+    "ethereal": "Extremely delicate or refined; often used to describe beauty.",
+    "effing": "A nicer way of saying 'f**king'.",
+    "FFS": "For F**k's Sake; an expression of frustration or exasperation.",
+    "FOMO": "Fear Of Missing Out; anxiety about missing an exciting event.",
+    "FTW": "For The Win; used to express enthusiasm for something.",
+    "FWIW": "For What It's Worth; used to introduce a statement that may or may not be considered valuable.",
+    "fam": "Close friends or family.",
+    "feels": "Emotions or feelings.",
+    "finesse": "To cleverly handle a situation or manipulate someone.",
+    "finsta": "Fake Instagram; a secondary account for more private content.",
+    "fit": "Outfit.",
+    "finna": "Going to or intending to (derived from 'fixing to').",
+    "fleek": "On point or very good.",
+    "flex": "To show off or boast about something.",
+    "facts": "Agreeing with something that is undeniably true.",
+    "fake deep": "Pretending to be profound or insightful.",
+    "fire": "Really good or impressive.",
+    "frontin'": "Pretending or putting up a false appearance.",
+    "fapping": "Masturbation.",
+    "fleabagging": "Dating and breaking up, then making up with the wrong person over and over.",
+    "ghosting": "Suddenly cutting off all communication with someone without explanation.",
+    "glow up": "A noticeable improvement in appearance, style, or overall life.",
+    "GOAT": "Greatest Of All Time; used to praise someone who is considered the best.",
+    "goated": "Outstanding or excellent.",
+    "goals": "Aspirational; used to describe something or someone one wants to emulate.",
+    "gassed": "Feeling very excited or pumped up.",
+    "grind": "Hard work or hustle.",
+    "gucci": "Cool or good, taken from the luxury brand.",
+    "gloup": "A major improvement in someone's appearance, style, or overall life.",
+    "hits different": "When something feels or affects you in a unique way compared to other similar things.",
+    "highkey": "Openly or obviously; the opposite of lowkey.",
+    "hundo P": "100 percent; completely sure.",
+    "hangry": "Irritable due to hunger.",
+    "hype": "Excitement or enthusiastic promotion.",
+    "hot take": "An unpopular or controversial opinion.",
+    "hyped": "Extremely excited.",
+    "hella": "Hell of; a lot or very.",
+    "hood": "Short for neighborhood, often used to describe a rough area.",
+    "hypebeast": "Someone who follows the latest trends and only buys trendy, high-end brands.",
+    "hundo": "Hundred.",
+    "hold up": "Wait a moment or pause.",
+    "heaux": "A variant of the word 'hoe,' used in reference to a promiscuous woman.",
+    "IDK": "I Don't Know.",
+    "IKR": "I Know, Right? Used to agree with something that was just said.",
+    "IMHO": "In My Humble Opinion.",
+    "incel": "Involuntary Celibate; someone who struggles with romantic or sexual relationships.",
+    "IYKYK": "If You Know, You Know.",
+    "irr": "Irritated.",
+    "IRL": "In Real Life.",
+    "It's giving": "Used to express how something or someone feels or looks in a way that aligns with a particular vibe.",
+    "juice": "Cool or impressive; also slang for influence or power.",
+    "janky": "Poor quality or unreliable.",
+    "jelly": "Jealous.",
+    "k": "Okay.",
+    "karen": "A derogatory term for an entitled, demanding woman.",
+    "kiki": "A fun social gathering or event, often for gossip or drama.",
+    "king": "A term of respect, often used for a man.",
+    "kickback": "A laid-back social gathering or party.",
+    "knope": "A term used to describe being unsure or skeptical.",
+    "lit": "Exciting, cool, or fun.",
+    "lowkey": "Not obvious or subtle, often used to express something secretly.",
+    "lmao": "Laughing My Ass Off.",
+    "lms": "Like My Status.",
+    "loud": "Bold or attention-grabbing.",
+    "litty": "Very lit.",
+    "lunchable": "Something small, often refers to a convenience food.",
+    "looped": "To be intoxicated, typically from alcohol or drugs.",
+    "loss": "To fail or lose.",
+    "look": "Used when introducing an opinion or perspective.",
+    "lewk": "A personal style or outfit.",
+    "lmfao": "Laughing My Freaking Ass Off.",
+    "man cave": "A space or room in a house for men to relax in.",
+    "my bad": "An apology for making a mistake.",
+    "mad": "Very or extremely.",
+    "MFW": "My Face When. Used to describe one's reaction to something.",
+    "MVP": "Most valuable player",
+    "MO": "Modus Operandi; used to describe someone's typical behavior.",
+    "monkey": "An insult referring to clumsiness or stupidity.",
+    "mood": "A feeling or emotion someone experiences.",
+    "muse": "A person who inspires creativity or artistic expression.",
+    "mask": "To hide or disguise one's true feelings.",
+    "meme": "A humorous or viral image, video, or text.",
+    "millennial": "A person born between 1981-1996, associated with technological advancements and shifting social values.",
+    "mega": "Extremely good or impressive.",
+    "morning": "Shortened as a greeting.",
+    "moments": "Memories or occurrences.",
+    "man-bun": "A hairstyle where long hair is tied up in a bun.",
+    "muva": "A variant of 'mother,' used for a powerful or influential woman.",
+    "munch": "Sexual appetite.",
+    "mac": "A friend or pal.",
+    "mine": "A personal possession or term of endearment.",
+    "mood": "State or disposition.",
+    "man-child": "An adult man who displays immaturity.",
+    "morals": "A code of conduct or values.",
+    "muh": "Commonly used in sentences indicating self-explanation or self-realization.",
+    "meme-tastic": "Indicating something is funny, or great as a meme.",
+    "mash": "To collide or grind.",
+    "mood": "State or disposition.",
+    "man-child": "An adult man who displays immaturity.",
+    "morals": "A code of conduct or values.",
+    "muh": "Commonly used in sentences indicating self-explanation or self-realization.",
+    "meme-tastic": "Indicating something is funny, or great as a meme.",
+    "mash": "To collide or grind.",
+    "nana": "Grandmother, often used in an affectionate way.",
+    "napping": "Taking a brief rest or sleep.",
+    "neurodivergent": "Describes someone whose brain processes differently from the typical or standard.",
+    "noob": "A beginner or novice, often used in online gaming.",
+    "no cap": "No lie or truth.",
+    "naked": "Bare, without clothes.",
+    "nft": "Non-Fungible Token; a unique digital asset.",
+    "newb": "Another term for a beginner or novice.",
+    "nitpick": "To focus on small, insignificant issues.",
+    "nightcap": "A final drink before bed.",
+    "on fleek": "On point, flawless.",
+    "on god": "A phrase used to emphasize the truth or sincerity of a statement.",
+    "OTW": "On The Way.",
+    "OG": "Original Gangster; someone who is authentic, respected, or experienced.",
+    "OTP": "One True Pairing; a couple, real or fictional, that is seen as perfect.",
+    "overload": "To overwhelm or exceed limits.",
+    "overthink": "To think too much about something, usually leading to unnecessary worry.",
+    "plz": "Please.",
+    "pinned": "A message or post that has been marked as important and kept at the top of a feed.",
+    "popping": "Very lively, exciting, or fashionable.",
+    "PM": "Private Message.",
+    "POV": "Point Of View; often used to describe a perspective or a situation from someone's viewpoint.",
+    "pressing": "Urgent or important.",
+    "petty": "Being overly concerned with trivial matters, often with the intent to annoy.",
+    "pet": "To show affection to someone or something.",
+    "peep": "To look at or observe something.",
+    "popping off": "To do something with great energy or excitement.",
+    "plot twist": "A surprising change in the expected course of events.",
+    "pissed": "Angry.",
+    "pause": "To stop something temporarily or reconsider before continuing.",
+    "queer": "A term used to describe someone who does not fit into the traditional categories of sexual orientation or gender identity.",
+    "quick flex": "To quickly show off or brag about something.",
+    "queen": "A term used to describe a powerful or respected woman.",
+    "quietly": "In a calm or subdued manner.",
+    "relationship goals": "A term used to describe what one aspires to have in a relationship.",
+    "roast": "To humorously criticize or mock someone.",
+    "ratchet": "Someone or something that is ghetto or trashy.",
+    "reality check": "A realization or reminder of the true nature of a situation.",
+    "real talk": "A conversation that is honest or direct.",
+    "reel": "A social media post, particularly on Instagram, similar to TikTok videos.",
+    "rev": "Rev up, or to increase speed or intensity.",
+    "receipts": "Evidence or proof, usually of something that someone has said or done.",
+    "roll the dice": "To take a risk.",
+    "shook": "Shocked or surprised.",
+    "shade": "Subtle or indirect criticism.",
+    "savage": "Someone or something that is bold, fierce, or ruthless.",
+    "simp": "Someone who is overly attentive or submissive to someone they are attracted to, often in a way considered excessive.",
+    "slay": "To perform exceptionally well or to look outstanding.",
+    "slaps": "Something that is very good or impressive, usually in reference to music.",
+    "sliding into DMs": "Sending someone a private message, often with a romantic or flirtatious intent.",
+    "squad": "A group of close friends or associates.",
+    "savage": "Bold, daring, and unapologetically confident.",
+    "stan": "To be a huge fan of someone or something.",
+    "spill the tea": "To share gossip or news.",
+    "sus": "Suspicious; used to describe something that seems off or shady.",
+    "thirsty": "Desperate for attention, especially romantic or sexual.",
+    "thicc": "A term used to describe a person with a curvy or fuller body.",
+    "tbh": "To Be Honest.",
+    "tldr": "Too Long; Didn't Read. Used to summarize a long message or text.",
+    "tea": "Gossip or the latest news.",
+    "throw shade": "To subtly insult or criticize someone.",
+    "top tier": "The best or highest quality.",
+    "toxic": "Unhealthy or harmful, especially in relationships.",
+    "vibe": "The overall feeling or atmosphere of a place or situation.",
+    "vibing": "Feeling the mood or enjoying the atmosphere.",
+    "vsco girl": "A stereotype of a young woman who dresses casually, loves taking aesthetic photos, and uses products like Hydro Flasks.",
+    "woke": "Awareness of social injustices and inequalities, particularly related to race or gender.",
+    "YOLO": "You Only Live Once. Used to express the idea that life is short and one should take risks or seize opportunities.",
+    "yasss": "An enthusiastic affirmation or celebration.",
+    "yikes": "Used to express discomfort or embarrassment.",
+    "zaddy": "A term for an attractive man, often used to describe someone with confidence and style."
+        };
+
+        function searchWord() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const resultDiv = document.getElementById("searchResult");
+            if (dictionary[input]) {
+                resultDiv.innerHTML = `<p><strong>${input}:</strong> ${dictionary[input]}</p>`;
+            } else {
+                resultDiv.innerHTML = `<p>Word not found. Try another word or Check our free e-book! </p>`;
+            }
+        }
+
+        function addWord() {
+            const word = document.getElementById("newWord").value.toLowerCase();
+            const meaning = document.getElementById("newMeaning").value;
+            if (word && meaning) {
+                dictionary[word] = meaning;
+                alert(`Added: ${word} - ${meaning}`);
+            } else {
+                alert("Please enter both a word and its meaning.");
+            }
+        }
+
+        // Modal functionality
+        const modal = document.getElementById("ackModal");
+        const btn = document.getElementById("ackButton");
+        const span = document.getElementsByClassName("close")[0];
+        btn.onclick = function () {
+            modal.style.display = "block";
+        };
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+      const quizData = [
+      {
+                question: "What does 'slay' mean in Gen Z slang?",
+                options: ["To do something well", "To fail", "To rest", "To walk"],
+                correct: 0
+            },
+        {
+question: "What does 'bussin' mean in Gen Z slang?",
+options: ["Boring", "Delicious", "Sad", "Tired"],
+correct: 1
+},
+        
+            {
+                question: "What does 'sus' stand for?",
+                options: ["Suspicious", "Successful", "Suspended", "Super"],
+                correct: 0
+            },
+        {
+question: "What does 'spill the tea' mean in Gen Z slang?",
+options: ["Drink some tea", "Tell a secret", "Leave the room", "Go to sleep"],
+correct: 1
+},
+
+{
+question: "What does 'no cap' mean in Gen Z slang?",
+options: ["I'm joking", "I'm serious", "I don't understand", "I agree"],
+correct: 1
+},
+
+{
+question: "What does 'cheugy' mean in Gen Z slang?",
+options: ["Cool and trendy", "Out of style and tacky", "Funny and quirky", "Relaxed and chill"],
+correct: 1
+},
+
+{
+question: "What does 'stan' mean in Gen Z slang?",
+options: ["To dislike someone", "To admire someone intensely", "To ignore someone", "To meet someone"],
+correct: 1
+},
+
+{
+question: "What does 'dead' mean in Gen Z slang?",
+options: ["Tired", "Sad", "Funny", "Angry"],
+correct: 2
+},
+
+{
+question: "What does 'vibe check' mean in Gen Z slang?",
+options: ["To check the temperature", "To assess the mood or atmosphere", "To check your phone", "To check the time"],
+correct: 1
+},
+
+{
+question: "What does 'main character energy' mean in Gen Z slang?",
+options: ["Having a lot of energy", "Being the center of attention", "Being very quiet", "Being very helpful"],
+correct: 1
+},
+
+{
+question: "What does 'ship' mean in Gen Z slang?",
+options: ["To dislike", "To support a romantic relationship", "To travel", "To buy something"],
+correct: 1
+},
+
+{
+question: "What does 'ghost' mean in Gen Z slang?",
+options: ["To haunt someone", "To ignore someone", "To help someone", "To meet someone"],
+correct: 1
+},
+
+{
+question: "What does 'low-key' mean in Gen Z slang?",
+options: ["Loudly", "Obviously", "Subtly", "Strongly"],
+correct: 2
+},
+
+{
+question: "What does 'savage' mean in Gen Z slang?",
+options: ["Kind and gentle", "Rude and insulting", "Scared and timid", "Happy and excited"],
+correct: 1
+},
+            {
+                question: "If someone says 'vibes', what are they talking about?",
+                options: ["The weather", "Emotions or atmosphere", "A party", "Their health"],
+                correct: 1
+            }
+    ];
+
+    const modalQuiz = document.getElementById("quizModal");
+    const btnQuiz = document.getElementById("quizButton");
+    const spanQuiz = document.getElementById("closeQuiz");
+
+    btnQuiz.onclick = function () {
+      loadQuiz();
+      modalQuiz.style.display = "block";
+    };
+
+    spanQuiz.onclick = function () {
+      modalQuiz.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+      if (event.target === modalQuiz) {
+        modalQuiz.style.display = "none";
+      }
+    };
+
+    function loadQuiz() {
+      const quizContainer = document.getElementById("quizContainer");
+      quizContainer.innerHTML = "";
+      quizData.forEach((q, index) => {
+        const questionBlock = document.createElement("div");
+        questionBlock.classList.add("quiz-question");
+        questionBlock.innerHTML = `
+          <p><strong>${index + 1}. ${q.question}</strong></p>
+        `;
+        q.options.forEach((option, i) => {
+          questionBlock.innerHTML += `
+            <label>
+              <input type="radio" name="q${index}" value="${i}">
+              ${option}
+            </label>
+          `;
+        });
+        quizContainer.appendChild(questionBlock);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      quizData.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && parseInt(selected.value) === q.correct) {
+          score++;
+        }
+      });
+      alert(`You scored ${score}/${quizData.length}`);
+      modalQuiz.style.display = "none";
+    }
+    </script>
+</body>
+</html>
