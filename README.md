@@ -1,4 +1,5 @@
 # Your Gen Z Dictionary
+## Version-1.0
 
 **Your Gen Z Dictionary** is an engaging and interactive web application designed to decode the vibrant language of Gen Z. Whether you’re a curious boomer, a millennial trying to stay relevant, or a Gen Zer looking to explain your slang to friends and family, this app is your ultimate guide to trending words and phrases that define modern communication.
 
