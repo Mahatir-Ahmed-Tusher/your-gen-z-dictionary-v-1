@@ -59,6 +59,7 @@ Download Ebook of the Dictionary: Free Dictionary PDF: https://drive.google.com/
   -Expand the dictionary with more words and user contributions.
   -Improve UI/UX with additional animations and themes.
   -Add multilingual support for global accessibility.
+  Check the **version 2.0** of this app: https://github.com/Mahatir-Ahmed-Tusher/Your-Gen-Z-Dictionary-V-2.git
 ## 📃 License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
